@@ -1,14 +1,13 @@
-﻿//Ryan
-using System;
+﻿using System;
 
-public class Company
+public class PaymentProvider
 {
     public string CompanyName { get; set; }
     public string CompanyAddress { get; set; }
     public string CompanyUEN { get; set; }
     public string CompanyContact { get; set; }
 
-    public Company(string companyName, string companyAddress, string companyUEN, string companyContact)
+    public PaymentProvider(string companyName, string companyAddress, string companyUEN, string companyContact)
     {
         CompanyName = companyName;
         CompanyAddress = companyAddress;
