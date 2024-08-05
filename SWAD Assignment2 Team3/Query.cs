@@ -8,11 +8,17 @@ namespace SWAD_Assignment2_Team3
 {
     class Query
     {
-        public string queryID { get; set; }
-        public string userID { get; set; }
-        public DateTime queryDate { get; set; }
-        public string queryStatus { get; set; }
-        public string queryDescription { get; set; }
+        private string queryID;
+        private string userID;
+        private DateTime queryDate;
+        private string queryStatus;
+        private string queryDescription;
+
+        public string QueryID { get; set; }
+        public string UserID { get; set; }
+        public DateTime QueryDate { get; set; }
+        public string QueryStatus { get; set; }
+        public string QueryDescription { get; set; }
 
         public Query() { }
         public Query(string qID, string uID, DateTime qDate, string qStatus, string qDescription)
@@ -22,6 +28,36 @@ namespace SWAD_Assignment2_Team3
             queryDate = qDate;
             queryStatus = qStatus;
             queryDescription = qDescription;
+        }
+
+        // CustomerServiceRep MULTIPLICITY (0..*:1)
+        // ====================
+        private CustomerServiceRep customerServiceRep;
+        public CustomerServiceRep CustomerServiceRep
+        {
+            set
+            {
+                if (customerServiceRep != value)
+                {
+                    customerServiceRep = value;
+                    value.addQuery(this);
+                }
+            }
+        }
+
+        // User MULTIPLICITY (0..*:1)
+        // ====================
+        private User user;
+        public User User
+        {
+            set
+            {
+                if (user != value)
+                {
+                    user = value;
+                    value.addQuery(this);
+                }
+            }
         }
     }
 }

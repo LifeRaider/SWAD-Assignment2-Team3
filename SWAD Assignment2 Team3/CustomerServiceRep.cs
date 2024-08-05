@@ -8,18 +8,38 @@ namespace SWAD_Assignment2_Team3
 {
     class CustomerServiceRep
     {
-        public string repID { get; set; }
-        public string repName { get; set; }
-        public string repEmail { get; set; }
-        public List<string> repQueries { get; set; }
+        private string repID;
+        public string repName;
+        private string repEmail;
+        private List<string> repQueries;
 
-        public CustomerServiceRep() { }
+        public string RepID { get; set; }
+        public string RepName { get; set; }
+        public string RepEmail { get; set; }
+        public List<string> RepQueries { get; set; }
+
         public CustomerServiceRep(string rID, string rName, string rEmail, List<string> rQueries)
         {
             repID = rID;
             repName = rName;
             repEmail = rEmail;
             repQueries = rQueries;
+        }
+
+        // Query MULTIPLICITY (1:0..*)
+        // ====================
+        private List<Query> queries;
+        public CustomerServiceRep()
+        {
+            queries = new List<Query>();
+        }
+        public void addQuery(Query q)
+        {
+            if (!queries.Contains(q))
+            {
+                queries.Add(q);
+                q.CustomerServiceRep = this;
+            }
         }
     }
 }

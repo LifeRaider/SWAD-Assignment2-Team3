@@ -16,7 +16,6 @@ namespace SWAD_Assignment2_Team3
         public string userID { get; set; }
         public string userAddress { get; set; }
 
-        public User() { }
         public User(string uName, string uContact, DateTime uDOB, string uDriversLicense, string uStatus, string uID, string uAddress)
         {
             userName = uName;
@@ -26,6 +25,22 @@ namespace SWAD_Assignment2_Team3
             userStatus = uStatus;
             userID = uID;
             userAddress = uAddress;
+        }
+
+        // Query MULTIPLICITY (1:0..*)
+        // ====================
+        private List<Query> queries;
+        public User()
+        {
+            queries = new List<Query>();
+        }
+        public void addQuery(Query q)
+        {
+            if (!queries.Contains(q))
+            {
+                queries.Add(q);
+                q.User = this;
+            }
         }
     }
 }
