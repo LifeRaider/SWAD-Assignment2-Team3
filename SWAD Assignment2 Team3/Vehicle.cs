@@ -127,4 +127,16 @@ public class Vehicle {
             r.Vehicle = this;
         }
     }
+
+    // ADMIN MULTIPLICITY (0..*:1)
+    // ====================
+    private Admin admin;
+    public Admin Admin {
+        set {
+            if (admin != value) {
+                admin = value;
+                value.addVehicle(this);
+            }
+        }
+    }
 }
