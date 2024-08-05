@@ -109,7 +109,10 @@ namespace SWAD_ASG2_CMT
         // Methods to Manage Queries
         public void AddQuery(Query query)
         {
-            queries.Add(query);
+            if (!queries.Contains(query))
+            {
+                queries.Add(query);
+            }
         }
 
         public void RemoveQuery(Query query)
@@ -120,7 +123,10 @@ namespace SWAD_ASG2_CMT
         // Methods to Manage CarRenters
         public void AddCarRenter(CarRenter carRenter)
         {
-            carRenters.Add(carRenter);
+            if (!carRenters.Contains(carRenter))
+            {
+                carRenters.Add(carRenter);
+            }
         }
 
         public void RemoveCarRenter(CarRenter carRenter)
@@ -131,7 +137,10 @@ namespace SWAD_ASG2_CMT
         // Methods to Manage CarOwners
         public void AddCarOwner(CarOwner carOwner)
         {
-            carOwners.Add(carOwner);
+            if (!carOwners.Contains(carOwner))
+            {
+                carOwners.Add(carOwner);
+            }
         }
 
         public void RemoveCarOwner(CarOwner carOwner)
@@ -142,7 +151,10 @@ namespace SWAD_ASG2_CMT
         // Methods to Manage Admins
         public void AddAdmin(Admin admin)
         {
-            admins.Add(admin);
+            if (!admins.Contains(admin))
+            {
+                admins.Add(admin);
+            }
         }
 
         public void RemoveAdmin(Admin admin)
