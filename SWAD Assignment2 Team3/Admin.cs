@@ -76,7 +76,10 @@ namespace SWAD_ASG2_CMT
         // Methods to Manage Multiplicity
         public void AddUser(User user)
         {
-            users.Add(user);
+            if (!users.Contains(user))
+            {
+                users.Add(user);
+            }
         }
 
         public void RemoveUser(User user)
@@ -86,7 +89,10 @@ namespace SWAD_ASG2_CMT
 
         public void AddVehicle(Vehicle vehicle)
         {
-            vehicles.Add(vehicle);
+            if (!vehicles.Contains(vehicle))
+            {
+                vehicles.Add(vehicle);
+            }
         }
 
         public void RemoveVehicle(Vehicle vehicle)
@@ -96,7 +102,10 @@ namespace SWAD_ASG2_CMT
 
         public void AddVehicleInspection(VehicleInspection inspection)
         {
-            vehicleInspections.Add(inspection);
+            if (!vehicleInspections.Contains(inspection))
+            {
+                vehicleInspections.Add(inspection);
+            }
         }
 
         public void RemoveVehicleInspection(VehicleInspection inspection)
