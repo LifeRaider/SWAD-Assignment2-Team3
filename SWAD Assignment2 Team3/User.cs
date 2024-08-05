@@ -1,46 +1,154 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWAD_Assignment2_Team3
+// CODI, S10241842
+namespace SWAD_ASG2_CMT
 {
-    class User
+    public class User
     {
-        public string userName { get; set; }
-        public string userContact { get; set; }
-        public DateTime userDOB { get; set; }
-        public string userDriversLicense { get; set; }
-        public string userStatus { get; set; }
-        public string userID { get; set; }
-        public string userAddress { get; set; }
+        // Private Attributes
+        private string userName;
+        private string userContact;
+        private DateTime userDOB;
+        private string userDriversLicense;
+        private string userStatus;
+        private int userID;
+        private string userAddress;
 
-        public User(string uName, string uContact, DateTime uDOB, string uDriversLicense, string uStatus, string uID, string uAddress)
-        {
-            userName = uName;
-            userContact = uContact;
-            userDOB = uDOB;
-            userDriversLicense = uDriversLicense;
-            userStatus = uStatus;
-            userID = uID;
-            userAddress = uAddress;
-        }
-
-        // Query MULTIPLICITY (1:0..*)
-        // ====================
+        // Private attributes for multiplicties
         private List<Query> queries;
-        public User()
+        private List<CarRenter> carRenters;
+        private List<CarOwner> carOwners;
+        private List<Admin> admins;
+
+        // Public Properties
+        public string UserName
         {
+            get { return userName; }
+            set { userName = value; }
+        }
+
+        public string UserContact
+        {
+            get { return userContact; }
+            set { userContact = value; }
+        }
+
+        public DateTime UserDOB
+        {
+            get { return userDOB; }
+            set { userDOB = value; }
+        }
+
+        public string UserDriversLicense
+        { 
+            get { return userDriversLicense; }
+            set { userDriversLicense = value; }
+        }
+
+        public string UserStatus
+        {
+            get { return userStatus; }
+            set { userStatus = value; }
+        }
+
+        public int UserID
+        {
+            get { return userID; }
+            set { userID = value; }
+        }
+
+        public string UserAddress
+        {
+            get { return userAddress; }
+            set { userAddress = value; }
+        }
+
+        // Public properties for multiplicties
+        public List<Query> Queries
+        {
+            get { return queries; }
+        }
+
+        public List<CarRenter> CarRenters
+        {
+            get { return carRenters; }
+        }
+
+        public List<CarOwner> CarOwners
+        {
+            get { return carOwners; }
+        }
+
+        public List<Admin> Admins
+        {
+            get { return admins; }
+        }
+
+        // Constructors
+        public User(string n, string c, DateTime d, string u, string us, int i, string a)
+        {
+            userName = n;
+            userContact = c;
+            userDOB = d;
+            userDriversLicense = u;
+            userStatus = us;
+            userID = i;
+            userAddress = a;
             queries = new List<Query>();
+            carRenters = new List<CarRenter>();
+            carOwners = new List<CarOwner>();
+            admins = new List<Admin>();
         }
-        public void addQuery(Query q)
+
+        // Methods
+        // Methods to Manage Queries
+        public void AddQuery(Query query)
         {
-            if (!queries.Contains(q))
-            {
-                queries.Add(q);
-                q.User = this;
-            }
+            queries.Add(query);
         }
+
+        public void RemoveQuery(Query query)
+        {
+            queries.Remove(query);
+        }
+
+        // Methods to Manage CarRenters
+        public void AddCarRenter(CarRenter carRenter)
+        {
+            carRenters.Add(carRenter);
+        }
+
+        public void RemoveCarRenter(CarRenter carRenter)
+        {
+            carRenters.Remove(carRenter);
+        }
+
+        // Methods to Manage CarOwners
+        public void AddCarOwner(CarOwner carOwner)
+        {
+            carOwners.Add(carOwner);
+        }
+
+        public void RemoveCarOwner(CarOwner carOwner)
+        {
+            carOwners.Remove(carOwner);
+        }
+
+        // Methods to Manage Admins
+        public void AddAdmin(Admin admin)
+        {
+            admins.Add(admin);
+        }
+
+        public void RemoveAdmin(Admin admin)
+        {
+            admins.Remove(admin);
+        }
+
     }
 }
