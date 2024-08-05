@@ -2,6 +2,8 @@ using System;
 
 public class Payment
 {
+    // ATTRIBUTES
+    // ====================
     public string PaymentID { get; set; }
     public string ReservationID { get; set; }
     public string PaymentMethod { get; set; }
@@ -12,7 +14,23 @@ public class Payment
     public decimal PenaltyAmount { get; set; }
     public string CreditCardNumber { get; set; }
 
-    public Payment(string paymentID, string reservationID, string paymentMethod, decimal paymentAmount, DateTime paymentDate, string paymentStatus, PrimeDiscount primeDiscount, decimal penaltyAmount, string creditCardNumber)
+    // PAYMENTPROVIDER MULTIPLICITY (0..*:1)
+    // ====================
+    private PaymentProvider paymentProvider;
+    public PaymentProvider PaymentProvider
+    {
+        get { return paymentProvider; }
+        set
+        {
+            if (paymentProvider != value)
+            {
+                paymentProvider = value;
+                value?.AddPayment(this);
+            }
+        }
+    }
+
+    public Payment(string paymentID, string reservationID, string paymentMethod, decimal paymentAmount, DateTime paymentDate, string paymentStatus, PrimeDiscount primeDiscount, decimal penaltyAmount, string creditCardNumber, PaymentProvider paymentProvider)
     {
         PaymentID = paymentID;
         ReservationID = reservationID;
@@ -23,6 +41,7 @@ public class Payment
         PrimeDiscount = primeDiscount;
         PenaltyAmount = penaltyAmount;
         CreditCardNumber = creditCardNumber;
+        PaymentProvider = paymentProvider;
     }
 
     public void ProcessPayment()

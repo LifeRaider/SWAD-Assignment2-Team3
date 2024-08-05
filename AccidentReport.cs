@@ -2,6 +2,8 @@ using System;
 
 public class AccidentReport
 {
+    // ATTRIBUTES
+    // ====================
     public string ReportID { get; set; }
     public string ReservationID { get; set; }
     public DateTime ReportDate { get; set; }
