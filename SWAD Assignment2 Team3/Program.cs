@@ -1,7 +1,1 @@
-﻿class Program
-{
-    static async Task Main(string[] args)
-    {
-        await RegisterVehicleSequence.SimulateRegisterVehicleSequence();
-    }
-}
+﻿using SWAD_Assignment2_Team3;
