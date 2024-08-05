@@ -1,143 +1,116 @@
 // HENG WEI JIAN MARVIN (S10260527)
 
-using System;
-using System.Collections.Generic;
-
-public class Vehicle
-{
-    // Attributes
+public class Vehicle {
+    // ATTRIBUTES
+    // ====================
     private string vehicleID;
     private string vehicleMake;
     private string vehicleModel;
     private int vehicleYear;
-    private int vehicleMileage;
+    private float vehicleMileage;
     private List<string> vehiclePhotos;
     private string userID;
-    private double rentalRate;
+    private float rentalRate;
     private string availabilitySchedule;
     private string vehicleStatus;
-    private string listingDescription;
+    private string vehicleDescription;
     private string listingID;
 
-    // Relationships
-    private CarOwner owner;
-    private List<Reservation> reservations;
-    private List<Insurance> insurancePolicies;
-    private List<VehicleInspection> inspections;
-
-    // Constructor
-    public Vehicle(string id, string make, string model, int year, int mileage, string ownerId)
-    {
-        this.vehicleID = id;
-        this.vehicleMake = make;
-        this.vehicleModel = model;
-        this.vehicleYear = year;
-        this.vehicleMileage = mileage;
-        this.userID = ownerId;
-        this.vehiclePhotos = new List<string>();
-        this.reservations = new List<Reservation>();
-        this.insurancePolicies = new List<Insurance>();
-        this.inspections = new List<VehicleInspection>();
-    }
-
-    // Properties
-    public string VehicleID
-    {
+    public string VehicleID {
         get { return vehicleID; }
-        private set { vehicleID = value; }
+        set { vehicleID = value; }
     }
-
-    public string VehicleMake
-    {
+    public string VehicleMake {
         get { return vehicleMake; }
         set { vehicleMake = value; }
     }
-
-    public string VehicleModel
-    {
+    public string VehicleModel {
         get { return vehicleModel; }
         set { vehicleModel = value; }
     }
-
-    public int VehicleYear
-    {
+    public int VehicleYear {
         get { return vehicleYear; }
         set { vehicleYear = value; }
     }
-
-    public int VehicleMileage
-    {
+    public float VehicleMileage {
         get { return vehicleMileage; }
         set { vehicleMileage = value; }
     }
-
-    public List<string> VehiclePhotos
-    {
+    public List<string> VehiclePhotos {
         get { return vehiclePhotos; }
         set { vehiclePhotos = value; }
     }
-
-    public string UserID
-    {
+    public string UserID {
         get { return userID; }
         set { userID = value; }
     }
-
-    public double RentalRate
-    {
+    public float RentalRate {
         get { return rentalRate; }
         set { rentalRate = value; }
     }
-
-    public string AvailabilitySchedule
-    {
+    public string AvailabilitySchedule {
         get { return availabilitySchedule; }
         set { availabilitySchedule = value; }
     }
-
-    public string VehicleStatus
-    {
+    public string VehicleStatus {
         get { return vehicleStatus; }
         set { vehicleStatus = value; }
     }
-
-    public string ListingDescription
-    {
-        get { return listingDescription; }
-        set { listingDescription = value; }
+    public string VehicleDescription {
+        get { return vehicleDescription; }
+        set { vehicleDescription = value; }
     }
-
-    public string ListingID
-    {
+    public string ListingID {
         get { return listingID; }
         set { listingID = value; }
     }
 
-    // Methods
-    public void AddPhoto(string photoUrl)
-    {
-        vehiclePhotos.Add(photoUrl);
+    // VEHICLEINSPECTION MULTIPLICITY (1:1)
+    // ====================
+    private VehicleInspection vehicleInspection;
+    public VehicleInspection VehicleInspection {
+        set {
+            if (vehicleInspection != value) {
+                vehicleInspection = value;
+                value.Vehicle = this;
+            }
+        }
     }
 
-    public void SetOwner(CarOwner owner)
-    {
-        this.owner = owner;
+    // CAROWNER MULTIPLICITY (1..*:1)
+    // ====================
+    private CarOwner carOwner;
+    public CarOwner CarOwner {
+        set {
+            if (carOwner != value) {
+                carOwner = value;
+                value.addVehicle(this);
+            }
+        }
     }
 
-    public void AddReservation(Reservation reservation)
-    {
-        reservations.Add(reservation);
+    public Vehicle() {
+        insurances = new List<Insurance>();
+        reservations = new List<Reservation>();
     }
 
-    public void AddInsurancePolicy(Insurance insurance)
-    {
-        insurancePolicies.Add(insurance);
+    // INSURANCE MULTIPLICITY (1:1..*)
+    // ====================
+    private List<Insurance> insurances;
+    public void addInsurance(Insurance i) {
+        if (!insurances.Contains(i)) {
+            insurances.Add(i);
+            i.Vehicle = this;
+        }
     }
 
-    public void AddInspection(VehicleInspection inspection)
-    {
-        inspections.Add(inspection);
+    // RESERVATION MULTIPLICITY (1:0..*)
+    // ====================
+    private List<Reservation> reservations;
+    public void addReservation(Reservation r) {
+        if (!reservations.Contains(r)) {
+            reservations.Add(r);
+            r.Vehicle = this;
+        }
     }
-
-    // Other methods as needed...
 }
