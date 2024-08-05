@@ -22,6 +22,18 @@ public class PaymentProvider
         Console.WriteLine($"UEN: {CompanyUEN}");
         Console.WriteLine($"Contact: {CompanyContact}");
     }
+
+    public bool VerifyPaymentDetails()
+    {
+        // Logic to verify payment details
+        return true;
+    }
+
+    public bool VerifyPayment()
+    {
+        // Logic to verify payment
+        return true;
+    }
 }
 
 public class Payment
@@ -75,6 +87,12 @@ public class Payment
         Console.WriteLine($"Payment Date: {PaymentDate}");
         Console.WriteLine($"Payment Status: {PaymentStatus}");
     }
+
+    public void UpdateStatusToPaid()
+    {
+        PaymentStatus = "Paid";
+        Console.WriteLine($"Payment status updated to: {PaymentStatus}");
+    }
 }
 
 public class PrimeDiscount
@@ -121,5 +139,67 @@ public class AccidentReport
     {
         ReportStatus = newStatus;
         Console.WriteLine($"Report status updated to: {ReportStatus}");
+    }
+}
+
+public class UIMakePayment
+{
+    public void DisplayPaymentOptions()
+    {
+        Console.WriteLine("Displaying payment options...");
+    }
+
+    public void UpdateUIWithPaymentSuccess()
+    {
+        Console.WriteLine("Updating UI with payment success...");
+    }
+
+    public void UpdateUIWithPaymentFailed()
+    {
+        Console.WriteLine("Updating UI with payment failure...");
+    }
+}
+
+public class CTLMakePayment
+{
+    public void ProcessPayment(Payment payment)
+    {
+        Console.WriteLine("Processing payment in controller...");
+        // Logic to process payment through PaymentProcessor and PaymentProvider
+        PaymentProcessor paymentProcessor = new PaymentProcessor();
+        bool isPaymentProcessed = paymentProcessor.ProcessPayment(payment);
+        
+        if (isPaymentProcessed)
+        {
+            payment.UpdateStatusToPaid();
+            UIMakePayment ui = new UIMakePayment();
+            ui.UpdateUIWithPaymentSuccess();
+        }
+        else
+        {
+            UIMakePayment ui = new UIMakePayment();
+            ui.UpdateUIWithPaymentFailed();
+        }
+    }
+
+    public void UpdateStatusToPaid(Payment payment)
+    {
+        payment.UpdateStatusToPaid();
+        Console.WriteLine("Updated status to Paid in the system.");
+    }
+}
+
+public class PaymentProcessor
+{
+    public bool ProcessPayment(Payment payment)
+    {
+        Console.WriteLine("Processing payment in PaymentProcessor...");
+        PaymentProvider provider = new PaymentProvider("ProviderName", "ProviderAddress", "ProviderUEN", "ProviderContact");
+        bool isVerified = provider.VerifyPaymentDetails();
+        if (isVerified)
+        {
+            return provider.VerifyPayment();
+        }
+        return false;
     }
 }
