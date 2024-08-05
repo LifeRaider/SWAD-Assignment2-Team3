@@ -36,7 +36,10 @@ namespace SWAD_ASG2_CMT
         // Methods to Manage vehicleList
         public void AddVehicle(Vehicle vehicle)
         {
-            vehicleList.Add(vehicle);
+            if (!vehicleList.Contains(vehicle))
+            {
+                vehicleList.Add(vehicle);
+            }
         }
 
         public void RemoveVehicle(Vehicle vehicle)
