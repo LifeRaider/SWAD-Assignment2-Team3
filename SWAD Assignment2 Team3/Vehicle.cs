@@ -65,6 +65,7 @@ public class Vehicle {
         set { listingID = value; }
     }
 
+    public Vehicle() { }
     public Vehicle(string vehicleID, string vehicleMake, string vehicleModel, int vehicleYear, float vehicleMileage, List<string> vehiclePhotos, string userID, float rentalRate, string availabilitySchedule, string vehicleStatus, string vehicleDescription, string listingID) {
         this.vehicleID = vehicleID;
         this.vehicleMake = vehicleMake;

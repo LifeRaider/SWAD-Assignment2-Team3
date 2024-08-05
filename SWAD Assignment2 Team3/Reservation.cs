@@ -55,6 +55,7 @@ public class Reservation {
         set { listingID = value; }
     }
 
+    public Reservation() { }
     public Reservation(string reservationID, string userID, DateTime startDate, DateTime endDate, string pickUpLocation, string returnLocation, string reservationStatus, float totalCost, string paidStatus, string listingID) {
         this.reservationID = reservationID;
         this.userID = userID;
