@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 public class PaymentProvider
 {
@@ -10,30 +9,12 @@ public class PaymentProvider
     public string CompanyUEN { get; set; }
     public string CompanyContact { get; set; }
 
-    // PAYMENTS MULTIPLICITY (1:0..*)
-    // ====================
-    private List<Payment> payments;
-    public List<Payment> Payments
-    {
-        get { return payments; }
-    }
-
     public PaymentProvider(string companyName, string companyAddress, string companyUEN, string companyContact)
     {
         CompanyName = companyName;
         CompanyAddress = companyAddress;
         CompanyUEN = companyUEN;
         CompanyContact = companyContact;
-        payments = new List<Payment>();
-    }
-
-    public void AddPayment(Payment payment)
-    {
-        if (!payments.Contains(payment))
-        {
-            payments.Add(payment);
-            payment.PaymentProvider = this;
-        }
     }
 
     public void DisplayCompanyInfo()

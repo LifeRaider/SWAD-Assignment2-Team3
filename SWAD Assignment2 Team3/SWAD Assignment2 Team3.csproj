@@ -6,6 +6,14 @@
     <RootNamespace>SWAD_Assignment2_Team3</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Payment.cs" />
+    <Compile Include="PaymentProvider.cs" />
+    <Compile Include="AccidentReport.cs" />
+  </ItemGroup>
 
 </Project>
