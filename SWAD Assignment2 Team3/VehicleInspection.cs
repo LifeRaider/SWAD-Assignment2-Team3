@@ -9,8 +9,8 @@ public class VehicleInspection {
     private string inspectionComment;
 
     public string InspectionID{
-        get { return reservationID;}
-        set { reservationID = value; }
+        get { return inspectionID;}
+        set { inspectionID = value; }
     }
 
     public string VehicleID{
@@ -33,7 +33,7 @@ public class VehicleInspection {
         set { inspectionStatus = value; }
     }
 
-    public bool InspectionComment{
+    public string InspectionComment{
         get { return inspectionComment;}
         set { inspectionComment = value; }
     }

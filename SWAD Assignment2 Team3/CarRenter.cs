@@ -1,6 +1,6 @@
 //LUCAS TOH (S10257164)
 
-public class CarRenter {
+public class CarRenter:User {
 
     private string renterTier;
     private string paymentMethod;
@@ -34,6 +34,15 @@ public class CarRenter {
         if (!accidentReport.Contains(a)) {
             accidentReport.Add(a);
             a.CarRenter = this;
+        }
+    }
+
+    //RESERVATION MULTIPLICITY (1:0..*)
+    private List<Reservation> reservations;
+    public void addReservation(Reservation r) {
+        if (!reservations.Contains(r)) {
+            reservations.Add(r);
+            r.CarRenter = this;
         }
     }
 }
