@@ -55,6 +55,19 @@ public class Reservation {
         set { listingID = value; }
     }
 
+    public Reservation(string reservationID, string userID, DateTime startDate, DateTime endDate, string pickUpLocation, string returnLocation, string reservationStatus, float totalCost, string paidStatus, string listingID) {
+        this.reservationID = reservationID;
+        this.userID = userID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.pickUpLocation = pickUpLocation;
+        this.returnLocation = returnLocation;
+        this.reservationStatus = reservationStatus;
+        this.totalCost = totalCost;
+        this.paidStatus = paidStatus;
+        this.listingID = listingID;
+    }
+
     // VEHICLE MULTIPLICITY (0..*:1)
     // ====================
     private Vehicle vehicle;

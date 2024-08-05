@@ -65,6 +65,21 @@ public class Vehicle {
         set { listingID = value; }
     }
 
+    public Vehicle(string vehicleID, string vehicleMake, string vehicleModel, int vehicleYear, float vehicleMileage, List<string> vehiclePhotos, string userID, float rentalRate, string availabilitySchedule, string vehicleStatus, string vehicleDescription, string listingID) {
+        this.vehicleID = vehicleID;
+        this.vehicleMake = vehicleMake;
+        this.vehicleModel = vehicleModel;
+        this.vehicleYear = vehicleYear;
+        this.vehicleMileage = vehicleMileage;
+        this.vehiclePhotos = vehiclePhotos;
+        this.userID = userID;
+        this.rentalRate = rentalRate;
+        this.availabilitySchedule = availabilitySchedule;
+        this.vehicleStatus = vehicleStatus;
+        this.vehicleDescription = vehicleDescription;
+        this.listingID = listingID;
+    }
+
     // VEHICLEINSPECTION MULTIPLICITY (1:1)
     // ====================
     private VehicleInspection vehicleInspection;
@@ -89,13 +104,13 @@ public class Vehicle {
         }
     }
 
+    // INSURANCE MULTIPLICITY (1:1..*)
+    // ====================
     public Vehicle() {
         insurances = new List<Insurance>();
         reservations = new List<Reservation>();
     }
 
-    // INSURANCE MULTIPLICITY (1:1..*)
-    // ====================
     private List<Insurance> insurances;
     public void addInsurance(Insurance i) {
         if (!insurances.Contains(i)) {
