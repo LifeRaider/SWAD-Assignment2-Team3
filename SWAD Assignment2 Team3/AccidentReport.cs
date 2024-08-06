@@ -12,6 +12,19 @@ namespace AccidentReportSystem
         public string Identities { get; set; }
         public string Photos { get; set; }
 
+        public AccidentReport() { }
+
+        public AccidentReport(string location, string timeOfAccident, string description, string licensePlate, string insuranceIds, string identities, string photos)
+        {
+            Location = location;
+            TimeOfAccident = timeOfAccident;
+            Description = description;
+            LicensePlate = licensePlate;
+            InsuranceIds = insuranceIds;
+            Identities = identities;
+            Photos = photos;
+        }
+
         public override string ToString()
         {
             return $"Location: {Location}\n" +
