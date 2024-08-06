@@ -1,79 +1,39 @@
 using System;
 
-public class AccidentReport
+namespace AccidentReportSystem
 {
-    // ATTRIBUTES
-    // ====================
-    private string reportID;
-    private string reservationID;
-    private DateTime reportDate;
-    private string reportStatus;
-    private string reportDescription;
+    public class AccidentReport
+    {
+        public string Location { get; set; }
+        public string TimeOfAccident { get; set; }
+        public string Description { get; set; }
+        public string LicensePlate { get; set; }
+        public string InsuranceIds { get; set; }
+        public string Identities { get; set; }
+        public string Photos { get; set; }
 
-    public string ReportID
-    {
-        get { return reportID; }
-        set { reportID = value; }
-    }
-    public string ReservationID
-    {
-        get { return reservationID; }
-        set { reservationID = value; }
-    }
-    public DateTime ReportDate
-    {
-        get { return reportDate; }
-        set { reportDate = value; }
-    }
-    public string ReportStatus
-    {
-        get { return reportStatus; }
-        set { reportStatus = value; }
-    }
-    public string ReportDescription
-    {
-        get { return reportDescription; }
-        set { reportDescription = value; }
-    }
+        public AccidentReport() { }
 
-    public AccidentReport() { }
-    public AccidentReport(string reportID, string reservationID, DateTime reportDate, string reportStatus, string reportDescription)
-    {
-        this.reportID = reportID;
-        this.reservationID = reservationID;
-        this.reportDate = reportDate;
-        this.reportStatus = reportStatus;
-        this.reportDescription = reportDescription;
-    }
-
-    // CARRENTER MULTIPLICITY (1:0..*)
-    // ====================
-    private CarRenter carRenter;
-    public CarRenter CarRenter
-    {
-        get { return carRenter; }
-        set
+        public AccidentReport(string location, string timeOfAccident, string description, string licensePlate, string insuranceIds, string identities, string photos)
         {
-            if (carRenter != value)
-            {
-                carRenter = value;
-                value?.addAccidentReport(this);
-            }
+            Location = location;
+            TimeOfAccident = timeOfAccident;
+            Description = description;
+            LicensePlate = licensePlate;
+            InsuranceIds = insuranceIds;
+            Identities = identities;
+            Photos = photos;
         }
-    }
 
-    public void DisplayReportInfo()
-    {
-        Console.WriteLine($"Report ID: {ReportID}");
-        Console.WriteLine($"Reservation ID: {ReservationID}");
-        Console.WriteLine($"Report Date: {ReportDate}");
-        Console.WriteLine($"Report Status: {ReportStatus}");
-        Console.WriteLine($"Description: {ReportDescription}");
-    }
-
-    public void UpdateReportStatus(string newStatus)
-    {
-        ReportStatus = newStatus;
-        Console.WriteLine($"Report status updated to: {ReportStatus}");
+        public override string ToString()
+        {
+            return $"Location: {Location}\n" +
+                   $"Time of Accident: {TimeOfAccident}\n" +
+                   $"Description: {Description}\n" +
+                   $"License Plate: {LicensePlate}\n" +
+                   $"Insurance IDs: {InsuranceIds}\n" +
+                   $"Identities: {Identities}\n" +
+                   $"Photos: {Photos}";
+        }
     }
 }
