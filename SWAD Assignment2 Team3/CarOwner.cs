@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 // CODI, S10241842
 public class CarOwner : User
 {
-    private List<Vehicle> vehicles;
+    private List<Vehicle> vehicleList;
     private float ownerEarnings;
 
-    public List<Vehicle> Vehicles
+    public List<Vehicle> VehicleList
     {
-        get { return vehicles; }
-        set { vehicles = value; }
+        get { return vehicleList; }
+        set { vehicleList = value; }
     }
     private float OwnerEarnings
     {
@@ -22,7 +22,7 @@ public class CarOwner : User
     }
 
     public CarOwner() { }
-    public CarOwner(List<Vehicle> vehicles, float ownerEarnings)
+    public CarOwner(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, int userID, string userAddress, List<Vehicle> vehicles, float ownerEarnings) : base(userName, userContact, userDOB, userDriversLicense, userStatus, userID, userAddress)
     {
         this.vehicles = vehicles;
         this.ownerEarnings = ownerEarnings;

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SWAD_Assignment2_Team3;
 
 // CODI, S10241842
 public class User
