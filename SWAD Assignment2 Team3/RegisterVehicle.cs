@@ -76,7 +76,6 @@ public class RegisterVehicle
 
         newVehicle.VehicleID = GenerateVehicleID();
         // Store VIN in VehicleID for now, as there's no separate VIN field in the Vehicle class
-        newVehicle.VehicleID = vin;
         return true;
     }
 
@@ -103,13 +102,13 @@ public class RegisterVehicle
 
     private bool GetOwnershipProof()
     {
-        registrationDocument = GetValidInput("Enter vehicle registration document number: ", ValidateNonEmpty);
+        registrationDocument = GetValidInput("Enter vehicle registration document number (format VR######): ", ValidateRegistrationDocument);
         return true;
     }
 
     private bool GetInsuranceDetails()
     {
-        insurancePolicyNumber = GetValidInput("Enter insurance policy number: ", ValidateNonEmpty);
+        insurancePolicyNumber = GetValidInput("Enter insurance policy number (format INS######): ", ValidateInsurancePolicyNumber);
         insuranceProvider = GetValidInput("Enter insurance provider: ", ValidateNonEmpty);
         return true;
     }
@@ -238,6 +237,26 @@ public class RegisterVehicle
             return true;
         }
         Console.WriteLine("Invalid photo format. Please use .jpg, .jpeg, or .png files.");
+        return false;
+    }
+
+    private bool ValidateRegistrationDocument(string input)
+    {
+        if (Regex.IsMatch(input, @"^VR\d{6}$"))
+        {
+            return true;
+        }
+        Console.WriteLine("Invalid registration document number. Format should be VR followed by 6 digits (e.g., VR123456).");
+        return false;
+    }
+
+    private bool ValidateInsurancePolicyNumber(string input)
+    {
+        if (Regex.IsMatch(input, @"^INS\d{6}$"))
+        {
+            return true;
+        }
+        Console.WriteLine("Invalid insurance policy number. Format should be INS followed by 6 digits (e.g., INS789012).");
         return false;
     }
 
