@@ -46,7 +46,7 @@ while (true)
     else if (option == 1) { }
     else if (option == 2) { }
     else if (option == 3) { }
-    else if (option == 4) { }
+    else if (option == 4) { ReturnVehicle();}
     else if (option == 5) { }
     else
     {
