@@ -4,7 +4,7 @@ public class CarRenter:User {
 
     private string renterTier;
     private string paymentMethod;
-    private string bookingHistory;
+    private List<Reservation> bookingHistory;
 
     public string RenterTier {
         get { return renterTier; }
@@ -16,13 +16,14 @@ public class CarRenter:User {
         set { paymentMethod = value; }
     }
 
-    public string BookingHistory {
+    public List<Reservation> BookingHistory {
         get { return bookingHistory; }
         set { bookingHistory = value; }
     }
 
     public CarRenter() { }
-    public CarRenter(string renterTier, string paymentMethod, string bookingHistory){
+    public CarRenter(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, int userID, string userAddress, string renterTier, string paymentMethod, List<Reservation> bookingHistory) : base(userName, userContact, userDOB, userDriversLicense, userStatus, userID, userAddress)
+    {
         this.renterTier = renterTier;
         this.paymentMethod = paymentMethod;
         this.bookingHistory = bookingHistory;
