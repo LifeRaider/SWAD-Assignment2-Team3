@@ -12,6 +12,31 @@ void DisplayMenu()
 
 /* functions/methods here */
 
+        static void ReturnVehicle()
+        {
+            Console.Write("Enter Reservation ID: ");
+            int reservationId = Convert.ToInt32(Console.ReadLine());
+
+            ReturnVehicle ReturnVehicle = new ReturnVehicle();
+            var reservationDetails = ReturnVehicle.GetReservationDetails(reservationId);
+
+            if (reservationDetails != null)
+            {
+                Console.WriteLine("Enter return location:");
+                string location = Console.ReadLine();
+                Console.WriteLine("Enter return time (e.g., 1/12/2024 13:00):");
+                DateTime time = Convert.ToDateTime(Console.ReadLine());
+
+                ctlReturnVehicle.SubmitReturnDetails(location, time);
+
+                Console.WriteLine("Vehicle return process completed successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Reservation not found!");
+            }
+        }
+
 while (true)
 {
     DisplayMenu();
