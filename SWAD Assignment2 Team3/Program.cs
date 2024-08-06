@@ -6,7 +6,7 @@ void DisplayMenu()
     "[2] Make Reservation (Jovan)\r\n" +
     "[3] Make Payment (Ryan)\r\n" +
     "[4] Return Vehicle (Lucas)\r\n" +
-    "[5]  (Codi)\r\n" +
+    "[5] Report Accident (Codi)\r\n" +
     "[0] Exit\r\n------------------------------------------\r\nEnter your option : ");
 }
 
@@ -81,6 +81,100 @@ void MakeReservation()
                       "\r\nReservation Total Cost: $" + reservation.TotalCost.ToString("F2"));
 }
 
+static void ReportAccident()
+        {
+            Console.WriteLine("Accident Detection System Triggered");
+
+            // Simulating impact detection
+            Console.WriteLine("System detected an impact. Waiting for renter report...");
+
+            // Timer simulation (for demonstration purposes only)
+            System.Threading.Thread.Sleep(600000); // Wait for 10 minutes (600,000 milliseconds)
+
+            Console.WriteLine("No report submitted by user within 10 minutes. Triggering automatic report...");
+
+            // Collecting accident report details from the user
+            var report = CollectAccidentReport();
+
+            if (report != null)
+            {
+                Console.WriteLine("Accident report submitted successfully.");
+                // Simulating sending notification to admin
+                SendNotification(report);
+                Console.WriteLine("Notification sent to admin.");
+            }
+            else
+            {
+                Console.WriteLine("No report was submitted by the user. Auto-report will be generated.");
+                // Simulating auto-report generation
+                AutoReport();
+                Console.WriteLine("Auto-report sent to admin.");
+            }
+
+            Console.WriteLine("Accident report process completed.");
+        }
+
+        static AccidentReport CollectAccidentReport()
+        {
+            try
+            {
+                Console.WriteLine("Please fill out the accident report form:");
+
+                Console.Write("Location of the accident: ");
+                string location = Console.ReadLine();
+
+                Console.Write("Time of the accident: ");
+                string timeOfAccident = Console.ReadLine();
+
+                Console.Write("Description of the accident: ");
+                string description = Console.ReadLine();
+
+                Console.Write("License plate numbers of the parties involved: ");
+                string licensePlate = Console.ReadLine();
+
+                Console.Write("Insurance IDs of the parties involved: ");
+                string insuranceIds = Console.ReadLine();
+
+                Console.Write("Identities of the parties involved (e.g., user ID or ID number): ");
+                string identities = Console.ReadLine();
+
+                Console.Write("Photographs of the accident scene and vehicle damage (if possible): ");
+                string photos = Console.ReadLine();
+
+                // Confirm submission
+                Console.Write("Submit this accident report? (yes/no): ");
+                string confirmation = Console.ReadLine().ToLower();
+                if (confirmation == "yes")
+                {
+                    return new AccidentReport(location, timeOfAccident, description, licensePlate, insuranceIds, identities, photos);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return null;
+            }
+        }
+
+        static void SendNotification(AccidentReport report)
+        {
+            // Simulate sending notification via SMS and email
+            Console.WriteLine("\nSending notification to iCar admin...");
+            Console.WriteLine("Notification sent to iCar admin with the following details:");
+            Console.WriteLine(report);
+        }
+
+        static void AutoReport()
+        {
+            // Simulate auto-report generation
+            Console.WriteLine("\nGenerating automatic report...");
+            var autoReport = new AccidentReport("Auto-detected location", "Auto-detected time", "Auto-generated description", "Auto-detected license plate", "Auto-detected insurance IDs", "Auto-detected identities", "Auto-detected photos");
+            SendNotification(autoReport);
+        }
 
 while (true)
 {
