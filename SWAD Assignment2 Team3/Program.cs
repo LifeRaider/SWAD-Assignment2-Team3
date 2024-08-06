@@ -1,6 +1,4 @@
-﻿using SWAD_Assignment2_Team3;
-
-/* Display Menu */
+﻿/* Display Menu */
 void DisplayMenu()
 {
     Console.Write("---------------- M E N U -----------------\r\n" +
@@ -21,7 +19,7 @@ while (true)
 
     if (option == 0) { break; }
     else if (option == 1) { }
-    else if (option == 2) { MakeReservation(); }
+    else if (option == 2) { }
     else if (option == 3) { }
     else if (option == 4) { }
     else if (option == 5) { }
