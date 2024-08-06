@@ -88,7 +88,10 @@ while (true)
     int option = Convert.ToInt16(Console.ReadLine());
 
     if (option == 0) { break; }
-    else if (option == 1) { }
+    else if (option == 1) { 
+        RegisterVehicle registrationProcess = new RegisterVehicle();
+        registrationProcess.Start();
+    }
     else if (option == 2) { MakeReservation(); }
     else if (option == 3) { }
     else if (option == 4) { }
