@@ -17,26 +17,56 @@ void DisplayMenu()
             Console.Write("Enter Reservation ID: ");
             int reservationId = Convert.ToInt32(Console.ReadLine());
 
-            ReturnVehicle ReturnVehicle = new ReturnVehicle();
-            var reservationDetails = ReturnVehicle.GetReservationDetails(reservationId);
+            Reservation reservation = GetReservationById(reservationId);
 
-            if (reservationDetails != null)
+            if (reservation != null)
             {
                 Console.WriteLine("Enter return location:");
                 string location = Console.ReadLine();
                 Console.WriteLine("Enter return time (e.g., 1/12/2024 13:00):");
                 DateTime time = Convert.ToDateTime(Console.ReadLine());
 
-                ctlReturnVehicle.SubmitReturnDetails(location, time);
+                reservation.ReturnLocation = location;
+                reservation.ReturnDate = time;
 
-                Console.WriteLine("Vehicle return process completed successfully.");
+                Console.WriteLine("Verifying renter identity...");
+                if (true)
+                {
+                    Console.WriteLine("Identity verified.");
+                    Console.WriteLine("Prompting for vehicle inspection...");
+
+                    InspectionResults inspectionResults = new InspectionResults
+                    {
+                        VehicleId = reservation.VehicleId,
+                        Condition = "Good",
+                        Notes = "No issues"
+                    };
+
+                    ProcessInspection(inspectionResults, reservation);
+
+                    double additionalCharges = CalculateAdditionalCharges(inspectionResults);
+                    if (additionalCharges > 0)
+                    {
+                        Console.WriteLine($"Additional charges: ${additionalCharges}");
+                        Console.WriteLine("Processing payment...");
+                        ProcessPayment(reservation, additionalCharges);
+                    }
+
+                    Console.WriteLine("Completing reservation...");
+                    CompleteReservation(reservation);
+
+                    Console.WriteLine("Return process completed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Identity verification failed!");
+                }
             }
             else
             {
                 Console.WriteLine("Reservation not found!");
             }
         }
-
 while (true)
 {
     DisplayMenu();
