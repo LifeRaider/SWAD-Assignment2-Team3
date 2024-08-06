@@ -22,7 +22,7 @@ public class CarRenter:User {
     }
 
     public CarRenter() { }
-    public CarRenter(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, int userID, string userAddress, string renterTier, string paymentMethod, List<Reservation> bookingHistory) : base(userName, userContact, userDOB, userDriversLicense, userStatus, userID, userAddress)
+    public CarRenter(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, string userID, string userAddress, string renterTier, string paymentMethod, List<Reservation> bookingHistory) : base(userName, userContact, userDOB, userDriversLicense, userStatus, userID, userAddress)
     {
         this.renterTier = renterTier;
         this.paymentMethod = paymentMethod;

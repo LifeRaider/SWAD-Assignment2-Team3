@@ -14,7 +14,7 @@ void DisplayMenu()
 void MakeReservation()
 {
     /* initialise */
-    /*CarRenter renter = new CarRenter(, "regular", "Credit card", new List<Reservation>()); */
+    CarRenter renter = new CarRenter("Bob", "hi@hi.com", Convert.ToDateTime("1/1/2000"), "D12345678", "Verified", "U011", "1 HarbourFront Walk, Singapore 098585", "regular", "Credit card", new List<Reservation>());
     List<string> pictures = new List<string>()
     {
         "URL1", "URL2", "URL3", "URL4", "URL5", "URL6","URL7", "URL8", "URL9", "URL10"
@@ -30,7 +30,7 @@ void MakeReservation()
     Vehicle vehicle;
     while (true)
     {
-        Console.Write("---------------- Vehicles -----------------\r\n" +
+        Console.Write("\r\n---------------- Vehicles -----------------\r\n" +
         "[1] Audi\r\n" +
         "[2] Mercedes\r\n" +
         "[3] BMW\r\n" +
@@ -47,18 +47,38 @@ void MakeReservation()
     }
 
     Console.WriteLine(vehicle.AvailabilitySchedule);
-    Console.WriteLine("Enter start date and time (e.g. 1/12/2024 13:00):");
-    DateTime startDate = Convert.ToDateTime(Console.ReadLine());
-    Console.WriteLine("Enter end date and time (e.g. 3/12/2024 13:00):");
-    DateTime endDate = Convert.ToDateTime(Console.ReadLine());
-    Console.WriteLine("Enter pickup location (iCar Station 5, Downtown):");
+    DateTime startDate;
+    DateTime endDate;
+    while (true)
+    {
+        try
+        {
+            Console.Write("Enter start date and time (e.g. 1/12/2024 13:00):");
+            startDate = Convert.ToDateTime(Console.ReadLine());
+            Console.Write("Enter end date and time (e.g. 3/12/2024 13:00):");
+            endDate = Convert.ToDateTime(Console.ReadLine());
+            break;
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Incorrect Date and Time format! Please try again :)");
+        }
+    }
+
+    Console.Write("Enter pickup location (iCar Station 5, Downtown):");
     string pickupLocation = Console.ReadLine();
-    Console.WriteLine("Enter return location (iCar Station 3, Airport):");
+    Console.Write("Enter return location (iCar Station 3, Airport):");
     string returnLocation = Console.ReadLine();
 
     Reservation reservation = new Reservation("R001", "U011", startDate, endDate, pickupLocation, returnLocation, "Pending", 150, "Unpaid", vehicle.ListingID);
-    Console.WriteLine(reservation.ToString());
+    renter.BookingHistory.Add(reservation);
 
+    Console.WriteLine("\r\nReservation ID: " + reservation.ReservationID +
+                      "\r\nReservation StartDate: " + reservation.StartDate +
+                      "\r\nReservation EndDate: " + reservation.EndDate +
+                      "\r\nReservation Pick Up Location: " + reservation.PickUpLocation +
+                      "\r\nReservation Return Location: " + reservation.ReturnLocation +
+                      "\r\nReservation Total Cost: $" + reservation.TotalCost.ToString("F2"));
 }
 
 
@@ -69,7 +89,7 @@ while (true)
 
     if (option == 0) { break; }
     else if (option == 1) { }
-    else if (option == 2) { }
+    else if (option == 2) { MakeReservation(); }
     else if (option == 3) { }
     else if (option == 4) { }
     else if (option == 5) { }
