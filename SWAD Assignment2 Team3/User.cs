@@ -14,7 +14,7 @@ public class User
     private DateTime userDOB;
     private string userDriversLicense;
     private string userStatus;
-    private int userID;
+    private string userID;
     private string userAddress;
 
     // Public Properties
@@ -48,7 +48,7 @@ public class User
         set { userStatus = value; }
     }
 
-    public int UserID
+    public string UserID
     {
         get { return userID; }
         set { userID = value; }
@@ -61,7 +61,7 @@ public class User
     }
 
     public User() { }
-    public User(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, int userID, string userAddress)
+    public User(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, string userID, string userAddress)
     {
         this.userName = userName;
         this.userContact = userContact;

@@ -22,7 +22,7 @@ public class CarOwner : User
     }
 
     public CarOwner() { }
-    public CarOwner(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, int userID, string userAddress, List<Vehicle> vehicles, float ownerEarnings) : base(userName, userContact, userDOB, userDriversLicense, userStatus, userID, userAddress)
+    public CarOwner(string userName, string userContact, DateTime userDOB, string userDriversLicense, string userStatus, string userID, string userAddress, List<Vehicle> vehicles, float ownerEarnings) : base(userName, userContact, userDOB, userDriversLicense, userStatus, userID, userAddress)
     {
         this.vehicles = vehicles;
         this.ownerEarnings = ownerEarnings;
