@@ -54,19 +54,6 @@ public class Payment
         set { penaltyAmount = value; }
     }
 
-    public Payment() { }
-    public Payment(string paymentID, string reservationID, string paymentMethod, decimal paymentAmount, DateTime paymentDate, string paymentStatus, PrimeDiscount primeDiscount, decimal penaltyAmount)
-    {
-        this.paymentID = paymentID;
-        this.reservationID = reservationID;
-        this.paymentMethod = paymentMethod;
-        this.paymentAmount = paymentAmount;
-        this.paymentDate = paymentDate;
-        this.paymentStatus = paymentStatus;
-        this.primeDiscount = primeDiscount;
-        this.penaltyAmount = penaltyAmount;
-    }
-
     // PAYMENTPROVIDER MULTIPLICITY (0..*:1)
     // ====================
     private PaymentProvider paymentProvider;
@@ -99,6 +86,19 @@ public class Payment
         }
     }
 
+    public Payment() { }
+    public Payment(string paymentID, string reservationID, string paymentMethod, decimal paymentAmount, DateTime paymentDate, string paymentStatus, PrimeDiscount primeDiscount, decimal penaltyAmount)
+    {
+        this.paymentID = paymentID;
+        this.reservationID = reservationID;
+        this.paymentMethod = paymentMethod;
+        this.paymentAmount = paymentAmount;
+        this.paymentDate = paymentDate;
+        this.paymentStatus = paymentStatus;
+        this.primeDiscount = primeDiscount;
+        this.penaltyAmount = penaltyAmount;
+    }
+
     public void ProcessPayment()
     {
         Console.WriteLine($"Processing payment ID: {PaymentID}");
@@ -114,15 +114,15 @@ public class Payment
         }
     }
 
-    public void DisplayPaymentInfo()
-    {
-        Console.WriteLine($"Payment ID: {PaymentID}");
-        Console.WriteLine($"Reservation ID: {ReservationID}");
-        Console.WriteLine($"Payment Method: {PaymentMethod}");
-        Console.WriteLine($"Payment Amount: {PaymentAmount}");
-        Console.WriteLine($"Payment Date: {PaymentDate}");
-        Console.WriteLine($"Payment Status: {PaymentStatus}");
-    }
+  public void DisplayPaymentInfo()
+{
+    Console.WriteLine($"Payment ID: {PaymentID}");
+    Console.WriteLine($"Reservation ID: {ReservationID}");
+    Console.WriteLine($"Payment Method: {PaymentMethod}");
+    Console.WriteLine($"Payment Amount: {PaymentAmount.ToString("F2")}");
+    Console.WriteLine($"Payment Date: {PaymentDate}");
+    Console.WriteLine($"Payment Status: {PaymentStatus}");
+}
 
     public void UpdateStatusToPaid()
     {
