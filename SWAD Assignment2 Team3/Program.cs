@@ -165,6 +165,93 @@ void MakePayment()
 }
 
 
+void ReturnVehicle()
+{
+    // Assuming renter is already initialized and has a list of reservations
+    CarRenter renter = new CarRenter("Bob", "hi@hi.com", Convert.ToDateTime("1/1/2000"), "D12345678", "Verified", "U011", "1 HarbourFront Walk, Singapore 098585", "regular", "Credit card", new List<Reservation>());
+
+    // Displaying the list of reservations
+    Console.WriteLine("\r\nYour Reservations:");
+    for (int i = 0; i < renter.BookingHistory.Count; i++)
+    {
+        Reservation res = renter.BookingHistory[i];
+        Console.WriteLine($"[{i + 1}] Reservation ID: {res.ReservationID}, " +
+                          $"Vehicle Listing ID: {res.ListingID}, " +
+                          $"Start Date: {res.StartDate}, " +
+                          $"End Date: {res.EndDate}, " +
+                          $"Status: {res.ReservationStatus}");
+    }
+
+    // Prompt user to select the reservation they want to return
+    Console.Write("\r\nEnter the reservation number to return the vehicle or 0 to exit: ");
+    int selection = Convert.ToInt16(Console.ReadLine());
+    if (selection == 0) return;
+
+    // Retrieve the selected reservation based on user input
+    if (selection > 0 && selection <= renter.BookingHistory.Count)
+    {
+        Reservation selectedReservation = renter.BookingHistory[selection - 1];
+
+        // Fetch the corresponding vehicle using the Reservation's ListingID
+        Vehicle vehicle = GetVehicleByListingID(selectedReservation.ListingID); 
+        if (vehicle == null)
+        {
+            Console.WriteLine("Vehicle not found. Please check the reservation details.");
+            return;
+        }
+
+        Admin admin = new Admin(1, "John Doe", "123-456-7890", "Inspector");
+
+
+        string inspectionID = "Inspection" + Guid.NewGuid().ToString("N").Substring(0, 5);
+        bool inspectionStatus = true; 
+        string inspectionComment = "No issues found."; 
+
+        VehicleInspection inspection = new VehicleInspection(inspectionID, vehicle.VehicleID, DateTime.Now, admin.AdminID.ToString(), inspectionStatus, inspectionComment);
+        inspection.Admin = admin; 
+        vehicle.VehicleInspection = inspection; 
+        admin.addVehicleInspection(inspection); 
+
+        Console.WriteLine($"Vehicle Inspection: {(inspectionStatus ? "Passed" : "Failed")} - {inspectionComment}");
+
+
+        if (selectedReservation.Payment != null && selectedReservation.Payment.PaymentStatus != "Paid")
+        {
+            selectedReservation.Payment.ProcessPayment(); 
+            selectedReservation.Payment.UpdateStatusToPaid(); 
+        }
+
+
+        selectedReservation.ReservationStatus = "Completed";
+        selectedReservation.PaidStatus = "Paid"; 
+
+        vehicle.AvailabilitySchedule = "Available"; 
+        vehicle.VehicleStatus = "Available"; 
+
+        selectedReservation.Payment?.DisplayPaymentInfo();
+
+        Console.WriteLine($"\r\nVehicle returned successfully for Reservation ID: {selectedReservation.ReservationID}.");
+        Console.WriteLine($"Total cost: ${selectedReservation.TotalCost.ToString("F2")} (Status: {selectedReservation.PaidStatus})");
+    }
+    else
+    {
+        Console.WriteLine("Invalid selection. Please try again.");
+    }
+}
+
+Vehicle GetVehicleByListingID(string listingID)
+{
+
+    List<Vehicle> vehicles = new List<Vehicle>()
+    {
+        new Vehicle("V001", "Audi", "A5", 2015, 100, new List<string> { "URL1", "URL2" }, "U001", 50, "Weekdays: 9 AM - 6 PM, Weekends: 10 AM - 4 PM", "Available", "This is an Audi", "L001"),
+        new Vehicle("V002", "Mercedes", "Benz", 2013, 120, new List<string> { "URL3", "URL4" }, "U002", 60, "Weekdays: 9 AM - 6 PM, Weekends: 10 AM - 4 PM", "Available", "This is a Mercedes", "L002"),
+        new Vehicle("V003", "BMW", "M3", 2017, 150, new List<string> { "URL5", "URL6" }, "U003", 55, "Weekdays: 9 AM - 6 PM, Weekends: 10 AM - 4 PM", "Available", "This is a BMW", "L003")
+    };
+
+    return vehicles.FirstOrDefault(v => v.ListingID == listingID);
+}
+
 while (true)
 {
     DisplayMenu();
@@ -177,7 +264,7 @@ while (true)
     }
     else if (option == 2) { MakeReservation(); }
     else if (option == 3) { MakePayment(); }
-    else if (option == 4) {}
+    else if (option == 4) { ReturnVehicle(); }
     else if (option == 5) { }
     else
     {
