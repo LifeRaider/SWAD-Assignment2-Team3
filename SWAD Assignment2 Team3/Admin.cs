@@ -74,4 +74,19 @@ public class Admin
             vi.Admin = this;
         }
     }
+    
+    // Method for Reporting accident
+    public void ReviewAccidentReport(AccidentReport report)
+    {
+        Console.WriteLine("\nAdmin reviewing accident report...");
+        report.DisplayReportInfo();
+        // Logic to review and log the report
+        Console.WriteLine("\nAccident report logged successfully.");
+    }
+
+    public void DispatchResponseTeam()
+    {
+        // Simulate dispatching a response team
+        Console.WriteLine("Dispatching response team...");
+    }
 }
