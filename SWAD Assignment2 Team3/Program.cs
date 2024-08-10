@@ -6,7 +6,7 @@ void DisplayMenu()
     "[2] Make Reservation (Jovan)\r\n" +
     "[3] Make Payment (Ryan)\r\n" +
     "[4] Return Vehicle (Lucas)\r\n" +
-    "[5]  (Codi)\r\n" +
+    "[5] Report Accident (Codi)\r\n" +
     "[0] Exit\r\n------------------------------------------\r\nEnter your option : ");
 }
 
@@ -265,7 +265,7 @@ while (true)
     else if (option == 2) { MakeReservation(); }
     else if (option == 3) { MakePayment(); }
     else if (option == 4) { ReturnVehicle(); }
-    else if (option == 5) { }
+    else if (option == 5) { ReportAccident();}
     else
     {
         Console.WriteLine("Invalid option! Please try again.");
