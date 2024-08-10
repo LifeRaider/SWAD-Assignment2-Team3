@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 // Codi, S10241842
-namespace AccidentReport
-{
+
     public class AccidentReport
     {
         // Private attributes
@@ -191,4 +190,3 @@ namespace AccidentReport
             Console.WriteLine($"Relevant Party Phone Number: {RelevantPartyPhoneNumber}");
         }
     }
-}
