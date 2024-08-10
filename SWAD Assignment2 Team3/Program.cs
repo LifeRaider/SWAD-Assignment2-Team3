@@ -252,6 +252,12 @@ Vehicle GetVehicleByListingID(string listingID)
     return vehicles.FirstOrDefault(v => v.ListingID == listingID);
 }
 
+void ReportAccident()
+{
+    CarRenter renter = new CarRenter();
+    renter.FileAccidentReport();
+}
+
 while (true)
 {
     DisplayMenu();
