@@ -144,6 +144,6 @@ public class Vehicle {
     public void UpdateStatus(string newStatus)
     {
         // Update the vehicle's status based on the accident
-        Console.WriteLine($"Vehicle status updated to: {newStatus}");
+        Console.WriteLine($"\nVehicle status updated to: {newStatus}");
     }
 }
