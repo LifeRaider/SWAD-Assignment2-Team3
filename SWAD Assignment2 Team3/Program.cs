@@ -11,6 +11,21 @@ void DisplayMenu()
 }
 
 /* functions/methods here */
+int ConvertDayToInt(string day)
+{
+    return day switch
+    {
+        "Mon" => 1,
+        "Tue" => 2,
+        "Wed" => 3,
+        "Thur" => 4,
+        "Fri" => 5,
+        "Sat" => 6,
+        "Sun" => 0,
+        _ => throw new ArgumentException("Invalid day")
+    };
+}
+
 void MakeReservation()
 {
     /* initialise */
@@ -19,26 +34,29 @@ void MakeReservation()
     {
         "URL1", "URL2", "URL3", "URL4", "URL5", "URL6","URL7", "URL8", "URL9", "URL10"
     };
-        List<Vehicle> vehicles = new List<Vehicle>()
+    List<Vehicle> vehicles = new List<Vehicle>()
     {
         new Vehicle("V001", "Audi", "A5", 2015, 100, pictures, "U001", 50, "Mon, Thur, Sat, Sun", "A", "This is an Audi", "L001"),
-        new Vehicle("V002", "Mercedes", "Benz", 2014, 120, pictures, "U002", 60, "Mon, Tue, Sat, Sun", "A", "This is an Mercedes", "L002"),
-        new Vehicle("V003", "BMW", "M3", 2017, 150, pictures, "U003", 55, "Mon, Thur, Sat, Sun", "A", "This is an BMW", "L003")
+        new Vehicle("V002", "Mercedes", "Benz", 2014, 120, pictures, "U002", 60, "Mon, Tue, Wed, Sat, Sun", "A", "This is an Mercedes", "L002"),
+        new Vehicle("V003", "BMW", "M3", 2017, 150, pictures, "U003", 55, "Mon, Thur, Sat, Sun", "A", "This is an BMW", "L003"),
+        new Vehicle("V004", "Toyota", "Prius", 2018, 150, pictures, "U004", 45, "Mon, Tue, Wed, Thur, Fri, Sat, Sun", "A", "This is an Toyota", "L004")
     };
-
+    vehicles[0].addReservation(new Reservation("R001", "U011", Convert.ToDateTime("1/12/2024"), Convert.ToDateTime("2/12/2024"), "", "", "Pending", 150, "Unpaid", vehicles[0].ListingID));
 
     Vehicle vehicle;
     while (true)
     {
-        Console.Write("\r\n---------------- Vehicles -----------------\r\n" +
-        "[1] Audi\r\n" +
-        "[2] Mercedes\r\n" +
-        "[3] BMW\r\n" +
+        string vehicleNames = "";
+        for (int i = 0; i < vehicles.Count(); i++)
+        {
+            vehicleNames += $"[{i+1}] {vehicles[i].VehicleMake}\r\n";
+        }
+        Console.Write("\r\n---------------- Vehicles -----------------\r\n" + vehicleNames +
         "[0] Exit\r\n------------------------------------------\r\nEnter your option : ");
 
         int option = Convert.ToInt16(Console.ReadLine());
         if (option == 0) { return; }
-        else if (option >= 1 && option <= 3) { vehicle = vehicles[option - 1]; break; }
+        else if (option >= 1 && option <= vehicles.Count()) { vehicle = vehicles[option - 1]; break; }
         else
         {
             Console.WriteLine("Invalid option! Please try again.");
@@ -53,10 +71,42 @@ void MakeReservation()
     {
         try
         {
+            // Get date
             Console.Write("Enter start date and time (e.g. 1/12/2024 13:00): ");
             startDate = Convert.ToDateTime(Console.ReadLine());
             Console.Write("Enter end date and time (e.g. 3/12/2024 13:00): ");
             endDate = Convert.ToDateTime(Console.ReadLine());
+
+            if (startDate >= endDate)
+            {
+                Console.WriteLine("Invalid dates! Please try again.");
+                continue;
+            }
+
+            // Check in Schedule
+            String[] available = vehicle.AvailabilitySchedule.Split(", ");
+            int[] daysAsInt = available.Select(day => ConvertDayToInt(day)).ToArray();
+
+            bool isAvailable = true;
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                int dayValue = (int)date.DayOfWeek;
+                if (!daysAsInt.Contains(dayValue))
+                {
+                    isAvailable = false;
+                    Console.WriteLine("Dates selected are unavailable! Please try again.");
+                    break;
+                }
+            }
+            if (!isAvailable) { continue; }
+
+            // Check Availability
+            if (!vehicle.CheckDates(startDate, endDate))
+            {
+                Console.WriteLine("Selected Dates are taken! Please try again.");
+                continue;
+            }
+
             break;
         }
         catch (FormatException)
@@ -72,6 +122,7 @@ void MakeReservation()
 
     Reservation reservation = new Reservation("R001", "U011", startDate, endDate, pickupLocation, returnLocation, "Pending", 150, "Unpaid", vehicle.ListingID);
     renter.BookingHistory.Add(reservation);
+    vehicle.addReservation(reservation);
 
     Console.WriteLine("\r\nReservation ID: " + reservation.ReservationID +
                       "\r\nReservation StartDate: " + reservation.StartDate +

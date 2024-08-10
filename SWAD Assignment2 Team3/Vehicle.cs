@@ -120,7 +120,7 @@ public class Vehicle {
 
     // RESERVATION MULTIPLICITY (1:0..*)
     // ====================
-    private List<Reservation> reservations;
+    private List<Reservation> reservations = new List<Reservation>();
     public void addReservation(Reservation r) {
         if (!reservations.Contains(r)) {
             reservations.Add(r);
@@ -139,6 +139,23 @@ public class Vehicle {
             }
         }
     }
+
+    // Check dates 
+    public Boolean CheckDates(DateTime sDate, DateTime eDate)
+    {
+        if (this.reservations != null && this.reservations.Count > 0)
+        {
+            foreach (Reservation r in this.reservations)
+            {
+                if (r.StartDate <= eDate && sDate <= r.EndDate)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     // Methods for reporting accident
     public void UpdateStatus(string newStatus)
