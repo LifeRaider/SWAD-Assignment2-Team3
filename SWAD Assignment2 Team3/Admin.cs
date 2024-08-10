@@ -79,14 +79,12 @@ public class Admin
     public void ReviewAccidentReport(AccidentReport report)
     {
         Console.WriteLine("\nAdmin reviewing accident report...");
-        report.DisplayReportInfo();
-        // Logic to review and log the report
-        Console.WriteLine("\nAccident report logged successfully.");
+        DispatchResponseTeam();
     }
-
+    
     public void DispatchResponseTeam()
     {
         // Simulate dispatching a response team
-        Console.WriteLine("Dispatching response team...");
+        Console.WriteLine("\nDispatching response team...");
     }
 }
