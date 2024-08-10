@@ -21,9 +21,9 @@ void MakeReservation()
     };
         List<Vehicle> vehicles = new List<Vehicle>()
     {
-        new Vehicle("V001", "Audi", "A5", 2015, 100, pictures, "U001", 50, "Weekdays: 9 AM - 6 PM, Weekends: 10 AM - 4 PM", "A", "This is an Audi", "L001"),
-        new Vehicle("V002", "Mercedes", "Benz", 2013, 120, pictures, "U002", 60, "Weekdays: 9 AM - 6 PM, Weekends: 10 AM - 4 PM", "A", "This is an Mercedes", "L002"),
-        new Vehicle("V003", "BMW", "M3", 2017, 150, pictures, "U003", 55, "Weekdays: 9 AM - 6 PM, Weekends: 10 AM - 4 PM", "A", "This is an BMW", "L003")
+        new Vehicle("V001", "Audi", "A5", 2015, 100, pictures, "U001", 50, "Mon, Thur, Sat, Sun", "A", "This is an Audi", "L001"),
+        new Vehicle("V002", "Mercedes", "Benz", 2014, 120, pictures, "U002", 60, "Mon, Tue, Sat, Sun", "A", "This is an Mercedes", "L002"),
+        new Vehicle("V003", "BMW", "M3", 2017, 150, pictures, "U003", 55, "Mon, Thur, Sat, Sun", "A", "This is an BMW", "L003")
     };
 
 
@@ -53,21 +53,21 @@ void MakeReservation()
     {
         try
         {
-            Console.Write("Enter start date and time (e.g. 1/12/2024 13:00):");
+            Console.Write("Enter start date and time (e.g. 1/12/2024 13:00): ");
             startDate = Convert.ToDateTime(Console.ReadLine());
-            Console.Write("Enter end date and time (e.g. 3/12/2024 13:00):");
+            Console.Write("Enter end date and time (e.g. 3/12/2024 13:00): ");
             endDate = Convert.ToDateTime(Console.ReadLine());
             break;
         }
         catch (FormatException)
         {
-            Console.WriteLine("Incorrect Date and Time format! Please try again :)");
+            Console.WriteLine("Incorrect Date and Time format! Please try again.");
         }
     }
  
-    Console.Write("Enter pickup location (iCar Station 5, Downtown):");
+    Console.Write("Enter pickup location (iCar Station 5, Downtown): ");
     string pickupLocation = Console.ReadLine();
-    Console.Write("Enter return location (iCar Station 3, Airport):");
+    Console.Write("Enter return location (iCar Station 3, Airport): ");
     string returnLocation = Console.ReadLine();
 
     Reservation reservation = new Reservation("R001", "U011", startDate, endDate, pickupLocation, returnLocation, "Pending", 150, "Unpaid", vehicle.ListingID);
@@ -258,23 +258,33 @@ void ReportAccident()
     renter.FileAccidentReport();
 }
 
+void RegisterVehicle()
+{
+    RegisterVehicle registrationProcess = new RegisterVehicle();
+    registrationProcess.Start();
+}
+
 while (true)
 {
     DisplayMenu();
-    int option = Convert.ToInt16(Console.ReadLine());
-
-    if (option == 0) { break; }
-    else if (option == 1) { 
-        RegisterVehicle registrationProcess = new RegisterVehicle();
-        registrationProcess.Start();
-    }
-    else if (option == 2) { MakeReservation(); }
-    else if (option == 3) { MakePayment(); }
-    else if (option == 4) { ReturnVehicle(); }
-    else if (option == 5) { ReportAccident();}
-    else
+    try
     {
-        Console.WriteLine("Invalid option! Please try again.");
+        int option = Convert.ToInt16(Console.ReadLine());
+
+        if (option == 0) { break; }
+        else if (option == 1) { RegisterVehicle(); }
+        else if (option == 2) { MakeReservation(); }
+        else if (option == 3) { MakePayment(); }
+        else if (option == 4) { ReturnVehicle(); }
+        else if (option == 5) { ReportAccident();}
+        else
+        {
+            Console.WriteLine("Invalid option! Please try again.");
+        }
+        Console.WriteLine();
     }
-    Console.WriteLine();
+    catch (Exception)
+    {
+        Console.WriteLine("Invalid input! Please enter an option.\r\n");
+    }
 }

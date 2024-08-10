@@ -97,6 +97,7 @@ public class Reservation {
     // ====================
     private Payment payment;
     public Payment Payment {
+        get { return payment; }
         set {
             if (payment != value) {
                 payment = value;
