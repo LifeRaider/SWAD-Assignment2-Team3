@@ -139,4 +139,11 @@ public class Vehicle {
             }
         }
     }
+
+    // Methods for reporting accident
+    public void UpdateStatus(string newStatus)
+    {
+        // Update the vehicle's status based on the accident
+        Console.WriteLine($"Vehicle status updated to: {newStatus}");
+    }
 }
