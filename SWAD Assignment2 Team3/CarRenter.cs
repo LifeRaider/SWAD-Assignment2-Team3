@@ -49,14 +49,18 @@ public class CarRenter:User {
 
     // Method for reporting accident
     public void FileAccidentReport()
+{
+    AccidentReport report = new AccidentReport();
+    report.ReportAccident();
+
+    if (!report.IsFalseAlarm && !report.IsAutoSubmitted) // Only proceed if it's not a false alarm
     {
-        AccidentReport report = new AccidentReport();
-        report.ReportAccident();
-        // Interaction with Admin or Vehicle class to proceed with the report
+        // Interaction with Admin or Vehicle class to proceed with the report 
         Admin admin = new Admin();
         admin.ReviewAccidentReport(report);
-    
+
         Vehicle vehicle = new Vehicle(); // Assuming this is the relevant vehicle
         vehicle.UpdateStatus("Involved in Accident");
     }
+}
 }
