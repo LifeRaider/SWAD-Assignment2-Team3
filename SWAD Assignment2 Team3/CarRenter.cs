@@ -46,4 +46,17 @@ public class CarRenter:User {
             r.CarRenter = this;
         }
     }
+
+    // Method for reporting accident
+    public void FileAccidentReport()
+    {
+        AccidentReport report = new AccidentReport();
+        report.ReportAccident();
+        // Interaction with Admin or Vehicle class to proceed with the report
+        Admin admin = new Admin();
+        admin.ReviewAccidentReport(report);
+    
+        Vehicle vehicle = new Vehicle(); // Assuming this is the relevant vehicle
+        vehicle.UpdateStatus("Involved in Accident");
+    }
 }
